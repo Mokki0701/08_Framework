@@ -174,7 +174,7 @@ public class ParameterController {
 		mem.setMemberAge(0);
 		
 		log.debug("inputMember : " + inputMember.toString());
-		
+		 
 		
 		
 		return "redirect:/param/main";
