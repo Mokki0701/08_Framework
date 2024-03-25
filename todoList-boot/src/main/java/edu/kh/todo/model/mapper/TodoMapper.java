@@ -1,6 +1,7 @@
 package edu.kh.todo.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,6 +16,9 @@ import edu.kh.todo.model.dto.Todo;
  * - Mybatis에서 제공하는 Mapper 상속 객체가 Bean으로 등록됨
  */
 
+/**
+ * 
+ */
 @Mapper
 public interface TodoMapper {
 
@@ -35,6 +39,58 @@ public interface TodoMapper {
 	 * @return result
 	 */
 	int addTodo(Todo todo);
+
+	/** 할 일 상세조회
+	 * @param todoNo
+	 * @return todo
+	 */
+	Todo todoDetail(int todoNo);
+
+	/** 할 일 삭제
+	 * @param todoNo
+	 * @return result
+	 */
+	int deleteTodo(int todoNo);
+
+	/** 할 일 수정
+	 * @param todo
+	 * @return result
+	 */
+	int updateTodo(Todo todo);
+
+	/** 완료 여부 변경
+	 * @param todo
+	 * @return result
+	 */
+	int changeComplete(Todo todo);
+
+	/** todo 개수 count
+	 * @return count
+	 */
+	int countTodo();
+
+	/** todoList의 No값들 알아오기
+	 * @return todo.todoNo
+	 */
+	List<Integer> selectNo();
+	
+	int sortNo(Map<String, Integer> todoMaps);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

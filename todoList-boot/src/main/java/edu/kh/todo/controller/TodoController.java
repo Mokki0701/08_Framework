@@ -2,12 +2,15 @@ package edu.kh.todo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ch.qos.logback.core.model.Model;
+import edu.kh.todo.model.dto.Todo;
 import edu.kh.todo.model.service.TodoService;
 
 @Controller
@@ -49,5 +52,181 @@ public class TodoController {
 		
 		return "redirect:/";
 	}
+	
+	@GetMapping("detail")
+	private String detailTodo(
+			@RequestParam("todoNo") int todoNo,
+			Model model,
+			RedirectAttributes ra
+			) {
+		Todo todo = service.todoDetail(todoNo);
+		
+		String path = null;
+		
+		if(todo != null) { // 조회 결과 있을 경우
+			
+			// templates/todo/detail/html
+			path = "todo/detail";
+			
+			model.addAttribute("todo", todo);
+			
+		}else { // 조회 결과가 없을 경우
+			
+			path = "redirect:/"; // 메인 페이지로 리다이렉트
+			
+			// RedirectAttribute :
+			// - 리다이렉트 시 데이터를 request scope로 전달할 수 있는 객체
+			ra.addFlashAttribute("message", "해당 조회 결과는 없습니다.");
+		}
+		
+		return path;
+	}
+	
+	// --------------------------
+	
+	@GetMapping("delete")
+	private String deleteTodo(
+			@RequestParam("todoNo") int todoNo,
+			RedirectAttributes ra,
+			Model model
+			) {
+		int result = service.deleteTodo(todoNo);
+		
+		String message = null;
+		
+		if(result > 0) message = "삭제 성공!!!";
+		else 		   message = "삭제 실패...";
+		
+		model.addAttribute("message", message);
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/";
+	}
+	
+	// ---------------------
+	
+	@GetMapping("update")
+	public String UpdateTodo(
+			@RequestParam("todoNo") int todoNo,
+			Model model
+			){
+		Todo todo = service.todoDetail(todoNo);
+		
+		model.addAttribute("todo", todo);
+		
+		return "todo/update";
+	}
+	
+	
+	/** 할 일 수정
+	 * @param updateTodo : 커맨드 객체(전달 받은 파라미터가 자동으로 필드에 세팅된 객체)
+	 * @param ra
+	 * @return
+	 */
+	@PostMapping("update")
+	public String UpdateTodo(
+			@ModelAttribute Todo updateTodo,
+			RedirectAttributes ra
+			) {
+		
+		int result = service.updateTodo(updateTodo);
+		
+		String message = null;
+		String path = "redirect:";
+		if(result > 0) {
+			message = "수정 성공!!!";
+			path += "/todo/detail?todoNo="+updateTodo.getTodoNo();
+		}
+		else {
+			message = "수정 실패...";
+			path += "/todo/update?todoNo="+updateTodo.getTodoNo(); // redirect는 기본적으로 get방식
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return path;
+	}
+	
+	@GetMapping("changeComplete")
+	public String changeComplete(
+			Todo todo,
+			RedirectAttributes ra
+			) {
+		int result = service.changeComplete(todo);
+		String message = null;
+		
+		if(result > 0) message = "변경 성공!!!";
+		else		   message = "변경 실패...";
+		
+		ra.addFlashAttribute("message", message);
+		
+		
+		// 현재 요청 주소 : /todo/changeComplete
+		// 응답 주소	  : /todo/detail
+		return "redirect:/todo/detail?todoNo="+todo.getTodoNo();
+	}
+	
+	@GetMapping("sortNum")
+	public String sortNum(RedirectAttributes ra) {
+		
+		int count = service.countTodo();
+		
+		int result = service.sortNo(count);
+		String message = null;
+		
+		if(result == count) message = "번호 정렬 성공!!!";
+		else			    message = "번호 정렬 실패...";
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

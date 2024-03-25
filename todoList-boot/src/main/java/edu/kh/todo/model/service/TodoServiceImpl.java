@@ -66,6 +66,61 @@ public class TodoServiceImpl implements TodoService {
 		return mapper.addTodo(todo);
 	}
 
+	@Override
+	public Todo todoDetail(int todoNo) {
+		
+		Todo todo = mapper.todoDetail(todoNo);
+		
+		return todo;
+	}
+
+	// --------------------------
+	
+	@Override
+	public int deleteTodo(int todoNo) {
+		return mapper.deleteTodo(todoNo);
+	}
+
+	@Override
+	public int updateTodo(Todo todo) {
+		
+		return mapper.updateTodo(todo);
+	}
+
+	@Override
+	public int changeComplete(Todo todo) {
+		return mapper.changeComplete(todo);
+	}
+
+	@Override
+	public int countTodo() {
+		return mapper.countTodo();
+	}
+
+	@Override
+	public int sortNo(int count) {
+		int result = 0;
+		
+		// 리스트로 각각의 todoNo를 알아와야 변경이 가능하겠는데?
+		List<Integer> todoList = mapper.selectNo();
+		
+		for(int i = 0; i < count; i++) {
+			Map<String, Integer> todoMaps = new HashMap<>();
+			todoMaps.put("originalNum", todoList.get(i));
+			todoMaps.put("changeNum", i+1);
+			result += mapper.sortNo(todoMaps);
+			
+		}
+		
+		
+		return result;
+	}
+
+	@Override
+	public int completeCount() {
+		return mapper.getCompleteCount();
+	}
+
 	
 	
 	
