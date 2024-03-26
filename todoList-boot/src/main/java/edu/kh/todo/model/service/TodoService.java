@@ -1,5 +1,6 @@
 package edu.kh.todo.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import edu.kh.todo.model.dto.Todo;
@@ -26,5 +27,7 @@ public interface TodoService {
 	int sortNo(int count);
 
 	int completeCount();
+
+	List<Todo> selectList();
 
 }
