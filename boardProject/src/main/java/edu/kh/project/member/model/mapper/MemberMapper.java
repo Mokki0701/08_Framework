@@ -12,5 +12,11 @@ public interface MemberMapper {
 	 * @return loginMember
 	 */
 	public Member login(String memberEmail);
+
+	/** 회원 가입
+	 * @param inputMember
+	 * @return result
+	 */
+	public int signup(Member inputMember);
 	
 }

@@ -20,6 +20,13 @@
 		WHERE MEMBER_EMAIL = #{memberEmail}
 		AND 	MEMBER_DEL_FL = 'N'
 	</select>
+	
+	<!-- parameterType="Member" 생략 가능!! -->
+	<insert id="signup" parameterType="Member">
+		INSERT INTO "MEMBER"
+		VALUES(SEQ_MEMBER_NO.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberNickname}, #{memberTel}, #{memberAddress},
+		 NULL, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
   
   
   

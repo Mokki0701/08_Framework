@@ -9,7 +9,7 @@ import edu.kh.project.member.model.dto.Member;
 import edu.kh.project.member.model.mapper.MemberMapper;
 
 @Service	// 비즈니스 로직 처리 역할 + Bean 등록
-@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = Exception.class) // (AOP 기반 기술)
 public class MemberServiceImpl implements MemberService {
 	
 	// 등록된 bean 중에서 같은 타입 또는 상속관계인 bean을
@@ -27,7 +27,8 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 테스트(디버그 모드)
 		// bcrypt.encode(문자열) : 문자열을 암호화하여 반환
-		// String bcryptPassword = bCrypt.encode(inputMember.getMemberPw());
+		String bcryptPassword = bcrypt.encode(inputMember.getMemberPw());
+		
 		
 		// 1. 이메일이 일치하면서 탈퇴하지 않은 회원 조회
 		Member loginMember = mapper.login(inputMember.getMemberEmail());
@@ -48,6 +49,42 @@ public class MemberServiceImpl implements MemberService {
 		loginMember.setMemberPw(null);
 		
 		return loginMember;
+	}
+
+	// 회원 가입 서비스
+	@Override
+	public int signup(Member inputMember, String[] memberAddress) {
+		
+		// 주소가 입력되지 않으면
+		// inputMember.getMemberAddress() -> ",,"
+		// memberAddress -> [,,]
+		
+		// 주소가 입력된 경우!
+		if(!inputMember.getMemberAddress().equals(",,")) {
+			
+			// String.join("구분자", 배열)
+			// -> 배열의 모든 요소 사이에 구분자를 추가하여
+			//   하나의 문자열로 만드는 메서드
+			
+			// 구분자로 "^^^" 쓴 이유 : 
+			// -> 주소, 상세주소에 없는 특수문자 작성
+			// -> 나중에 다시 3분할 때 구분자로 이용할 예정
+			String address = String.join("^^^", memberAddress);
+			
+			// inputMember 주소로 합쳐진 주소로 세팅
+			inputMember.setMemberAddress(address);
+	
+		}else { // 주소 입력 X
+			inputMember.setMemberAddress(null); // null 저장
+		}
+		// 비밀번호를 암호화 하여 inputMember에 세팅
+		String encPw = bcrypt.encode(inputMember.getMemberPw()); 
+		inputMember.setMemberPw(encPw);
+		
+		// 회원 가입 매퍼 메서드 호출
+		// -> Mybatis에 의해서 자동으로 SQL이 수행됨
+		//   (매퍼 메서드 호출 시 SQL에 사용할 파라미터는 1개만 전달 가능)
+		return mapper.signup(inputMember);
 	}
 	
 	
