@@ -86,6 +86,16 @@ public class MemberServiceImpl implements MemberService {
 		//   (매퍼 메서드 호출 시 SQL에 사용할 파라미터는 1개만 전달 가능)
 		return mapper.signup(inputMember);
 	}
+
+	@Override
+	public int checkEmail(String memberEmail) {
+		return mapper.checkEmail(memberEmail);
+	}
+
+	@Override
+	public int checkNickname(String memberNickname) {
+		return mapper.checkNickname(memberNickname);
+	}
 	
 	
 	

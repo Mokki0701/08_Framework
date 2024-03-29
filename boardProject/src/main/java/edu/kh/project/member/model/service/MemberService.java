@@ -8,4 +8,8 @@ public interface MemberService {
 
 	int signup(Member inputMember, String[] memberAddress);
 
+	int checkEmail(String memberEmail);
+
+	int checkNickname(String memberNickname);
+
 }
