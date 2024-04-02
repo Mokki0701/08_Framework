@@ -1,5 +1,8 @@
 package edu.kh.project.member.model.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -95,6 +98,35 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int checkNickname(String memberNickname) {
 		return mapper.checkNickname(memberNickname);
+	}
+
+	@Override
+	public Member quickLogin(String email) {
+		
+		Member loginMember = mapper.login(email);
+		
+		if(loginMember == null) return null;
+		
+		loginMember.setMemberPw(null);
+		
+		return loginMember;
+	}
+
+	@Override
+	public List<Member> checkMemberList() {
+		return mapper.checkMemberList();
+	}
+
+	@Override
+	public String findId(Map<String, String> map) {
+		
+		String email = mapper.fidId(map);
+		
+		if(email == null) {
+			return null;
+		}
+		
+		return email;
 	}
 	
 	

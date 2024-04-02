@@ -22,8 +22,28 @@
             <section class="content-1">
                 <!-- 확인, 보충 등등 그 때 그 때 사용 -->
 
-                <!-- session에 loginMember 있으면 출력 -->
-                <th:block th:text="${session.loginMember}"></th:block>
+                <h3>빠른 로그인</h3>
+                <button class="quick-Login">andymon@naver.com</button>
+                <button class="quick-Login">andymon</button>
+                <button class="quick-Login">member01@kh.or.kr</button>
+
+                <hr>
+
+                <h3>회원 목록 조회(비동기)
+                    <button id="checkMemberList">조회하기</button>
+                </h3>
+
+                <table border="1" style="border-collapse: collapse;">
+                    <th>회원번호</th>
+                    <th>이메일</th>
+                    <th>닉네임</th>
+                    <th>탈퇴여부</th>
+
+                    <tbody id="tbody">
+    
+                    </tbody>
+                </table>
+
 
             </section>
 
@@ -60,7 +80,8 @@
                         <article class="signup-find-area">
                             <a href="/member/signup">회원 가입</a>
                             <span> | </span>
-                            <a href="#">ID/PW 찾기</a>
+                            <span id="findId">ID 찾기</span>
+                            <span id="findPw">PW 찾기</span>
                         </article>
     
                     </form>

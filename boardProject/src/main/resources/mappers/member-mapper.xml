@@ -40,6 +40,28 @@
 		FROM "MEMBER"
 		WHERE MEMBER_NICKNAME = #{memberNickname}
 	</select>
+	
+	<select id="checkMemberList" resultType="Member">
+		SELECT *
+		FROM "MEMBER"
+		ORDER BY MEMBER_NO
+	</select>
+	
+	<select id="fidId" resultType="string">
+		SELECT MEMBER_EMAIL
+		FROM "MEMBER"
+		WHERE MEMBER_NICKNAME = #{findNickname}
+		AND MEMBER_TEL = #{findTel}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
   
   
   

@@ -23,6 +23,12 @@ main{
     min-height: 500px;
 }
 
+/* 화면 너비가 1140px이 되기 전에 적용할 css */
+/* == 1140px 이하일 때 적용 */
+@media (max-width : 1140px) {
+    main{width: 100vw;}
+}
+
 /* a태그 스타일 지정 */
 a{
     text-decoration: none;
@@ -227,6 +233,22 @@ input[name="memberEmail"]{
 
 .signup-find-area > a{
     font-size: 14px;
+}
+
+.signup-find-area > #findId{
+    font-size: 14px;
+}
+
+#findId:hover{
+    cursor: pointer;
+}
+
+.signup-find-area > #findPw{
+    font-size: 14px;
+}
+
+#findPw:hover{
+    cursor: pointer;
 }
 
 .signup-find-area > span{

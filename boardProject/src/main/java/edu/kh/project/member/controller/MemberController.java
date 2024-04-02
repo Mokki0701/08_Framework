@@ -1,5 +1,9 @@
 package edu.kh.project.member.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -206,6 +210,62 @@ public class MemberController {
 		return service.checkNickname(memberNickname);
 	}
 
+	
+	@GetMapping("quick")
+	public String quickLogin(
+			@RequestParam("memberEmail") String email,
+			Model model,
+			RedirectAttributes ra
+			) {
+		
+		log.debug(email);
+		
+		Member loginMember = service.quickLogin(email);
+		
+		if(loginMember == null) {
+			ra.addFlashAttribute("message", "해당 이메일 회원이 존재하지 않습니다");
+		}else {
+			model.addAttribute("loginMember", loginMember);
+		}
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("checkMember")
+	@ResponseBody
+	public List<Member> checkMemberList(){
+		
+		List<Member> memberList = service.checkMemberList();
+		
+		return memberList;
+	}
+	
+	
+	@PostMapping("findId")
+	public String findId(
+			@RequestParam("findNickname") String findNickname,
+			@RequestParam("findTel") String findTel,
+			RedirectAttributes ra
+			) {
+		
+		log.debug(findTel);
+		log.debug(findNickname);
+		
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("findNickname", findNickname);
+		map.put("findTel", findTel);
+		
+		String email = service.findId(map);
+		String message = null;
+		
+		if(email == null) message = "조회된 이메일은 존재하지 않습니다";
+		else message = "조회된 닉네임은 " + email + " 입니다.";
+		
+		ra.addFlashAttribute("message",message);
+		
+		return "redirect:/";
+	}
 	
 	
 	
