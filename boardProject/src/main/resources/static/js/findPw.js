@@ -5,29 +5,15 @@ const checkAuthKeyBtn = document.querySelector("#checkAuthKeyBtn");
 
 const checkAuthKey = false;
 
-let authTimer; // 타이머 역할을 할 setInterval을 저장할 변수
-
-const initMin = 4;
-const initSec = 59;
-const initTime = "05:00";
-
-let min = initMin;
-let sec = initSec;
 
 sendAuthKeyBtn.addEventListener("click", ()=>{
-    
-    min = initMin;
-    sec = initSec;
-
-    clearInterval(authTimer);
 
     checkAuthKey = false;
 
-    // ----------------------------
     fetch("/member/findPw",{
         method : "POST",
         headers : {"Content-Type":"application/json"},
-        body : findEmail.innerText()
+        body : findEmail.value
     })
     .then(resp=>{
         return resp.text();
@@ -35,21 +21,36 @@ sendAuthKeyBtn.addEventListener("click", ()=>{
     .then(result =>{
 
         if(result == 1){
-            console.log("인증 완료!!!");
+            alert("발송 성공!!!");
         }
         else{
-            console.log("인증 실패...");
+            alert("발송 실패...");
         }
     })
 
 
-
-
 })
 
+// ------------------------------------------------------------------------------------------------------
+
+checkAuthKeyBtn.addEventListener("click", e=>{
+
+    checkAuthKey = false;
+
+    // 이거 fetch 비동기로 보낼때 param값으로 authKey말고도 이메일도 보내야 되겠네
+
+    fetch("/member/matchAuthKey",{
+        method : "POST",
+        headers : {"Content-Type":"application/json"},
+        body : authKey.value
+    })
 
 
+});
 
+// ------------------------------------------------------------------------------------------------------
+
+// 인증 성공하면 checkAuthKey 버튼 true인지 체크하고 true면 팝업 창 닫고, 비밀번호 재설정 칸으로 가기
 
 
 

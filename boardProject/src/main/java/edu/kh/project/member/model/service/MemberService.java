@@ -21,6 +21,8 @@ public interface MemberService {
 
 	String findId(Map<String, String> map);
 
+	String sendEmail(String signup ,String email);
+
 
 
 }

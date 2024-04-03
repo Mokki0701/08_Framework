@@ -97,6 +97,13 @@ quickLoginBtns.forEach( (id, index) => {
 });
 
 
+const createTd = (text) => {
+    const td = document.createElement("td");
+    td.innerText = text;
+    return td;
+  }
+
+
 // ------------------------------------------------------------------------------
 /* 멤버 조회 */
 
@@ -105,50 +112,52 @@ const tbody = document.querySelector("#tbody");
 
 checkMemberList.addEventListener("click", e=>{
 
-    tbody.innerText="";
-
-
+    
+    
     // 1) 비동기로 회원 목록 조회
     //   (포함될 회원 정보 : 회원번호, 이메일, 닉네임, 탈퇴여부)
-
+    
     //   첫 번째 then(response => response.json()) ->
     //   JSON Array -> JS 객체 배열로 변환 [{}, {}, {}, {}] 
-
+    
     // 2) 두 번째 then
     //    tbody에 이미 작성되어 있던 내용(이전에 조회한 목록) 삭제
-
+    
     // 3) 두 번째 then
     //    조회된 JS 객체 배열을 이용해
     //    tbody에 들어갈 요소를 만들고 값 세팅 후 추가
-
-
+    
+    
     fetch("/member/checkMember")
     .then(resp=> resp.json() )
     .then(memberList => {
-
+        console.log(memberList);
+        tbody.innerText="";
 
         for(let member of memberList){
             const tr = document.createElement("tr");
 
             const arr = ['memberNo', 'memberEmail', 'memberNickname', 'memberDelFl'];
 
-            for(let key of arr){
+            arr.forEach( key => tr.append( createTd(member[key]) ) );
+            // for(let key of arr){
 
-                const td = document.createElement("td");
+            //     // const td = document.createElement("td");
+            //     // td.innerText = member[key];
 
-                td.innerText = member[key];
-                tr.append(td);
-                console.log(member[key]);
-                console.log(td);
+            //     const td = create
 
-            }
-            console.log(tr);
+            //     tr.append(td);
+            //     console.log(member[key]);
+            //     console.log(td);
+
+            // }
 
             tbody.append(tr);
 
         }
 
-
+ 
     })
 
 
@@ -158,18 +167,27 @@ checkMemberList.addEventListener("click", e=>{
 // ----------------------------------------------------------------------------
 /* ID/PW 찾기 팝업창으로 */
 
-findId.addEventListener("click", e=>{
+if(findId != null){
 
-    window.open("findId.html","_blank", "popup");
+    findId.addEventListener("click", e=>{
+    
+        window.open("findId.html","_blank", "popup");
+    
+        return;
+    });
 
+}
 
-})
+if(findPw != null){
 
-findPw.addEventListener("click", e=>{
+    findPw.addEventListener("click", e=>{
+    
+        window.open("findPw.html","_blank", "popup");
+        return;
+    });
 
-    window.open("findPw.html","_blank", "popup");
+}
 
-})
 
 
 

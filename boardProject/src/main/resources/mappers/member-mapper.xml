@@ -54,6 +54,18 @@
 		AND MEMBER_TEL = #{findTel}
 	</select>
 	
+	<update id="updateAuthKey">
+		UPDATE "TB_AUTH_KEY" SET
+		AUTH_KEY = #{authKey},
+		"CREATE_TIME" = SYSDATE
+		WHERE EMAIL = #{email}
+	</update>
+	
+	<insert id="insertAuthKey">
+		INSERT INTO "TB_AUTH_KEY"
+		VALUES(SEQ_MEMBER_NO.NEXTVAL, #{email}, #{authKey}, DEFAULT)
+	</insert>
+	
 	
 	
 	

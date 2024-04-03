@@ -66,7 +66,7 @@ public class EmailController {
 	}
 	
 	
-	/* @SessionAttrinute("Key")
+	/* @SessionAttribute("Key")
 	 * - Session에 세팅된 값 중 key가 일치하는 값을 얻어와
 	 *   매개 변수에 대입
 	 */

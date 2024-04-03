@@ -38,6 +38,10 @@ public interface MemberMapper {
 
 	public String fidId(Map<String, String> map);
 
+	public int updateAuthKey(Map<String, String> map);
+
+	public int insertAuthKey(Map<String, String> map);
+
 
 	
 }

@@ -1,15 +1,22 @@
 package edu.kh.project.member.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import edu.kh.project.member.model.dto.Member;
 import edu.kh.project.member.model.mapper.MemberMapper;
+import jakarta.mail.internet.MimeMessage;
 
 @Service	// 비즈니스 로직 처리 역할 + Bean 등록
 @Transactional(rollbackFor = Exception.class) // (AOP 기반 기술)
@@ -19,6 +26,12 @@ public class MemberServiceImpl implements MemberService {
 	// 자동으로 의존성 주입(DI)
 	@Autowired
 	private MemberMapper mapper;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	@Autowired
+	private SpringTemplateEngine templateEngine;
 	
 	// Bcrype 암호화 객체 의존성 주입(SecurityConfig 참고)
 	@Autowired
@@ -128,7 +141,89 @@ public class MemberServiceImpl implements MemberService {
 		
 		return email;
 	}
+
+	@Override
+	public String sendEmail(String findPw,String email) {
+		
+		String authKey = createAuthKey();
+		
+		String subject = null;
+		
+		try {
+			
+			if(findPw == "findPw") {
+				subject = "[boardProject] 비밀 번호 찾기 인증번호 입니다";
+			}
+			
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+			
+			helper.setTo(email);
+			helper.setSubject(subject);
+			helper.setText(loadHtml(authKey, findPw), true);
+			
+			helper.addInline("logo", new ClassPathResource("static/images/logo.jpg"));
+			
+			mailSender.send(mimeMessage);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("email", email);
+		map.put("authKey", authKey);
+		
+		// 이제 안에 있나 없나 검사하고 INSERT or UPDATE를 하면될듯
+		int result = mapper.updateAuthKey(map);
+
+		if(result == 0) {
+			result = mapper.insertAuthKey(map);
+		}
+		
+		if(result == 0) return null;
+		
+		return authKey;
+	}
 	
+	public String loadHtml(String authKey, String htmlName) {
+		
+		Context context = new Context();
+		
+		context.setVariable("authKey", authKey);
+
+		return templateEngine.process("email/signup", context);
+	}
+	
+	
+	
+	public String createAuthKey() {
+		
+		String key = "";
+		for(int i = 0; i < 6; i++) {
+			
+			int sel1 = (int)(Math.random()*3);
+			
+			if(sel1 == 0) {
+				int num = (int)(Math.random()* 10);
+				key += num;
+			}else {
+				
+				char ch = (char)(Math.random()*26 + 65);
+				
+				int sel2 = (int)(Math.random()*2);
+				
+				if(sel2 == 0) {
+					ch = (char)(ch + ('a' - 'A'));
+				}
+				key += ch;	
+			}	
+		}
+		return key;
+	}
 	
 	
 	

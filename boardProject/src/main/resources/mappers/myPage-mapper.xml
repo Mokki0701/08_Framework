@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.project.myPage.model.mapper.MyPageMapper">
+	
+	<update id="updateInfo">
+		UPDATE "MEMBER" SET
+		MEMBER_NICKNAME = #{memberNickname},
+		MEMBER_TEL = #{memberTel},
+		MEMBER_ADDRESS = #{memberAddress}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<select id="getPw" resultType="string"> <!-- 요새 mybatis에서 resultType을 안써도 된다고는 하는데 이거 업뎃 확인이 필요할듯 -->
+		SELECT MEMBER_PW
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<update id="changePw">
+		UPDATE "MEMBER" SET
+		MEMBER_PW = #{newBcryptPw} <!-- 이거 Object타입이면 toString으로 출력되는데, 이러면 자동으로 String형이라서 이렇게 된다고 하네... 보다는 그냥 된다고 어떻게 된다고 -->
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+
+</mapper>

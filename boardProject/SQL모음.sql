@@ -60,6 +60,17 @@ COMMIT;
 
 SELECT * FROM "MEMBER";
 
+UPDATE "MEMBER" SET
+MEMBER_ADDRESS = 'asd^^^sad^^^asd'
+WHERE MEMBER_NO = 7;
+
+COMMIT;
+	
+DELETE FROM "MEMBER"
+WHERE MEMBER_NO = 6;
+
+COMMIT;
+
 -- 로그인
 -- -> BCrypt 암호화 사용 중
 -- -> DB에서 비밀번호 비교 불가능!!!
@@ -85,7 +96,7 @@ AND MEMBER_EMAIL = 'andymon'
 ;
 
 DELETE FROM "MEMBER"
-WHERE MEMBER_NO = 3;
+WHERE MEMBER_NO = 7;
 
 COMMIT;
 
@@ -122,8 +133,12 @@ AND AUTH_KEY = #{위 이메일로 보낸 인증번호};
 
 
 
+UPDATE "MEMBER" SET
+MEMBER_ADDRESS = '123^^^22^^^22'
+WHERE MEMBER_NO = 7;
 
-
+COMMIT;
+ROLLBACK;
 
 
 
