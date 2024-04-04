@@ -66,7 +66,12 @@
 		VALUES(SEQ_MEMBER_NO.NEXTVAL, #{email}, #{authKey}, DEFAULT)
 	</insert>
 	
-	
+	<select id="matchAuthKey">
+		SELECT COUNT(*)
+		FROM "TB_AUTH_KEY"
+		WHERE AUTH_KEY = #{authKey}
+		AND EMAIL = #{memberEmail}
+	</select>
 	
 	
 	

@@ -224,6 +224,13 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return key;
 	}
+
+	@Override
+	public int matchAuthKey(Map<String, String> map) {
+		return mapper.matchAuthKey(map);
+	}
+
+
 	
 	
 	

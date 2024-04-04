@@ -15,6 +15,8 @@ public interface MyPageMapper {
 
 	int changePw(Map<String, Object> map);
 
+	int secession(int memberNo);
+
 	
 
 }

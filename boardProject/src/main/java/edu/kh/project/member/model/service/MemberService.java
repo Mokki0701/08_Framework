@@ -23,6 +23,10 @@ public interface MemberService {
 
 	String sendEmail(String signup ,String email);
 
+	int matchAuthKey(Map<String, String> map);
+
+
+
 
 
 }

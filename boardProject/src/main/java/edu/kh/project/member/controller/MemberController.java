@@ -268,13 +268,20 @@ public class MemberController {
 	@PostMapping("matchAuthKey")
 	@ResponseBody
 	public int matchAuthKey(
-			@RequestBody String authKey
-			
+			@RequestBody Map<String, String> map
 			) {
-		
-		
-		return 0;
+		return service.matchAuthKey(map);
 	}
+	
+	@GetMapping("resetPw")
+	public String resetPw() {
+		
+		return "member/resetPw";
+	}
+	
+	
+	
+	
 	
 	
 	

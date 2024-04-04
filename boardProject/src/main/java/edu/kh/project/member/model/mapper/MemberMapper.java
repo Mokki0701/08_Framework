@@ -42,6 +42,8 @@ public interface MemberMapper {
 
 	public int insertAuthKey(Map<String, String> map);
 
+	public int matchAuthKey(Map<String, String> map);
+
 
 	
 }
