@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서 관리</title>
+</head>
+<body>
+
+    <h1>책 검색, 수정, 삭제</h1>
+
+    <div>
+        제목 : <input type="text" id="inputContext" placeholder="내용을 입력해주세요."> 
+        <button id="searchContextBtn">검색</button>
+    </div>
+
+    <br>
+
+    <table border="1" style="border-collapse: collapse;">
+        <th>책 번호</th>
+        <th>책 제목</th>
+        <th>글쓴이</th>
+        <th>가격</th>
+        <th>등록일</th>
+        <th>수정버튼</th>
+        <th>삭제버튼</th>
+
+        <tbody id="tbody">
+            <tr th:each="book : ${bookList}" th:object="${book}">
+                <td th:text="*{bookNo}">책 번호</td> 
+                <td th:text="*{bookTitle}">책 제목</td> 
+                <td th:text="*{bookWriter}">글쓴이</td> 
+                <td th:text="*{bookPrice}">가격</td>  
+                <td th:text="*{regDate}">등록일</td>  
+                <td><button class="updateBtn">수정</button></td>
+                <td><button class="deleteBtn">삭제</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="/js/management.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.library.member.model.mapper.LibraryMapper">
+	
+	<insert id="enrollBook">
+		INSERT INTO "BOOK"
+		VALUES (SEQ_BOOK_NO.NEXTVAL, #{bookTitle}, #{bookWriter}, #{bookPrice}, DEFAULT)
+	</insert>
+	
+	<select id="selectList">
+		SELECT * FROM "BOOK"
+	</select>
+	
+	<select id="checkBook">
+		SELECT * FROM BOOK
+		WHERE BOOK_TITLE LIKE '%'||#{inputContext}||'%'
+	</select>
+	
+	<delete id="removeBook">
+		DELETE FROM BOOK
+		WHERE BOOK_NO = #{bookNo}
+	</delete>
+	
+	<update id="updatePrice">
+		UPDATE BOOK SET
+		BOOK_PRICE = #{bookPrice}
+		WHERE BOOK_NO = #{bookNo}
+	</update>
+
+</mapper>
