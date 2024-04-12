@@ -105,16 +105,21 @@
             <!-- ====================== 이미지가 있을 경우 출력하는 구문 ====================== -->
             
             <!-- 내용 -->
-            <div class="board-content">내용</div>
+            <div class="board-content" th:text="*{boardContent}">내용</div>
 
 
 
             <!-- 버튼 영역-->
             <div class="board-btn-area">
 
+                <!-- <th:block th:if="${session.loginMember != null and board.memberNo == session.loginMember.memberNo}"> -->
                 <!-- 로그인한 회원과 게시글 작성자 번호가 같은 경우-->
-                <button id="updateBtn">수정</button>
-                <button id="deleteBtn">삭제</button>
+                <th:block th:if="${board.memberNo == session.loginMember?.memberNo}"> 
+
+                    <button id="updateBtn">수정</button>
+                    <button id="deleteBtn">삭제</button>
+
+                </th:block>
 
                 <button id="goToListBtn">목록으로</button>
             </div>
@@ -123,7 +128,7 @@
 
 
         <!-- 댓글 영역-->
-        <!-- <th:block th:replace="~{board/comment}"></th:block> -->
+        <th:block th:replace="~{board/comment}"></th:block>
 
     </main>
 
