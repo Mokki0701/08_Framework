@@ -24,5 +24,9 @@ public interface BoardService {
 	 * @return board
 	 */
 	Board selectOne(Map<String, Integer> map);
+
+	int boardLike(Map<String, Integer> map);
+
+	int updateReadCount(int boardNo);
 	
 }

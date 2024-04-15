@@ -50,6 +50,14 @@ public class FileConfig implements WebMvcConfigurer {
 	@Value("${my.board.resource-location}")
 	private String boardResourceLocation; 
 	
+	// ----------------------------------------------------------
+	
+	
+	@Value("${my.mokkie.resource-handler}")
+	private String mokkieResourceHandler;
+	
+	@Value("${my.mokkie.resource-location}")
+	private String mokkieResourceLocation;
 	
 	
 	
@@ -73,6 +81,9 @@ public class FileConfig implements WebMvcConfigurer {
 		.addResourceHandler(boardResourceHandler)
 		.addResourceLocations(boardResourceLocation);
 		
+		registry
+		.addResourceHandler(mokkieResourceHandler)
+		.addResourceLocations(mokkieResourceLocation);
 	}
 	
 	/* MultipartResolver 설정 */

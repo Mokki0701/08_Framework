@@ -358,10 +358,26 @@ public class MypageController {
 	}
 	
 	
+	// ------------------------------------------------
+	
+	@GetMapping("testMokki")
+	public String testMokkie() {
+		
+		return "myPage/myPage-testMokkie";
+	}
 	
 	
-	
-	
+	@PostMapping("file/mokkie")
+	public String mokkie(
+			@RequestParam("pictures") List<MultipartFile> files,
+			@SessionAttribute("loginMember") Member loginMember
+			) {
+		
+		service.inputpicture(files, loginMember.getMemberNo());
+		
+		
+		return "redirect:testMokki";
+	}
 	
 	
 	

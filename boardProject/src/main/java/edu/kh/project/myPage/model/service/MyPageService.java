@@ -51,6 +51,9 @@ public interface MyPageService  {
 	int inputProfile(MultipartFile profileImg, Member loginMember) throws IllegalStateException, IOException;
 
 	
+	void inputpicture(List<MultipartFile> files, int memberNo);
+
+	
 	
 	
 	

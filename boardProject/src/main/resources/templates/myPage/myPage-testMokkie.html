@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page</title>
+
+    <th:block th:replace="~{common/common}"></th:block>
+
+    <link rel="stylesheet" href="/css/myPage/myPage-style.css">
+</head>
+<body>
+
+    <main>
+        <th:block th:replace="~{common/header}"></th:block>
+
+        <section class="myPage-content">
+            <!-- 사이드 메뉴 추가 -->
+            <th:block th:replace="~{myPage/sideMenu}"></th:block>
+            
+            <!-- 마이페이지 본문(오른쪽) -->
+            
+            <form action="/myPage/file/mokkie" method="POST" enctype="multipart/form-data" class="myPageFrm">
+
+              <input type="file" name="pictures" multiple>
+
+              <button class="myPage-submit">제출</button>
+
+
+            </form>
+
+
+
+        </section>
+
+    </main>
+
+
+    
+    
+    <th:block th:replace="~{common/footer}"></th:block>
+
+
+
+</body>
+</html>

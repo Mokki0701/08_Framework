@@ -32,22 +32,29 @@ public class BoardNameInterceptor implements HandlerInterceptor {
 		// - 자원 이름(주소)만 봐도 무엇인지 구별할 수 있는 문자열
 		String uri = request.getRequestURI();
 		
-		// log.debug(uri);
-		int boardCode = Integer.parseInt(uri.split("/")[2]);
 		
-		// boardTypeList 에서 boardCode를 하나씩 꺼내서 비교
-		for(Map<String, Object> boardType :boardTypeList) {
+		try {
+		
+			// log.debug(uri);
+			int boardCode = Integer.parseInt(uri.split("/")[2]);
 			
-			int temp =
-			Integer.parseInt(String.valueOf(boardType.get("boardCode")));
-			
-			// 비교 결과가 같다면
-			if(temp == boardCode) {
-				request.setAttribute("boardName", boardType.get("boardName"));
-				break;
+			// boardTypeList 에서 boardCode를 하나씩 꺼내서 비교
+			for(Map<String, Object> boardType :boardTypeList) {
+				
+				int temp =
+				Integer.parseInt(String.valueOf(boardType.get("boardCode")));
+				
+				// 비교 결과가 같다면
+				if(temp == boardCode) {
+					request.setAttribute("boardName", boardType.get("boardName"));
+					break;
+				}
+				
 			}
-			
+		
+		}catch (Exception e) {
 		}
+		
 
 		
 		

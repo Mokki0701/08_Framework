@@ -87,7 +87,7 @@
 
 <nav>
     <ul>
-        <th:block th:each="boardType : ${application.boardTypeList}">
+        <th:block th:each="boardType : ${application.boardTypeList2}">
 
             <li>
                 <a th:href="@{/freeBoard/{freeBoardCode}(freeBoardCode = ${boardType.boardCode})}" 

@@ -265,7 +265,13 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	
-	
+	@Override
+	public void inputpicture(List<MultipartFile> files, int memberNo) {
+		
+		
+		
+		
+	}
 	
 	
 	
