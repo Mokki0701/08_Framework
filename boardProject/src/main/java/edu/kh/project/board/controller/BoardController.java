@@ -77,7 +77,7 @@ public class BoardController {
 			RedirectAttributes ra,
 			@SessionAttribute(value="loginMember", required = false) Member loginMember,
 			HttpServletRequest req,   // 요청에 담긴 쿠키 얻어오기
-			HttpServletResponse resp  // 새로운 쿠키를 만들어 응답하기
+			HttpServletResponse resp // 새로운 쿠키를 만들어 응답하기
 			) throws ParseException {
 		
 		// 로그인이 안됬을 경우를 대비해 SessionAttribute를 required = false로 설정하여 필수가 아니게 한다.

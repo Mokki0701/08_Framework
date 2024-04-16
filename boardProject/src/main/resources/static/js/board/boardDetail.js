@@ -67,6 +67,26 @@ boardLike.addEventListener("click", e=>{
 
 });
 
+const deleteBtn = document.querySelector("#deleteBtn");
+
+deleteBtn.addEventListener("click", e=>{
+
+    console.log(cp);
+
+    let result = confirm("삭제 하시겠습니까?");
+
+    if(!result) {
+        alert("취소됨");
+        return;
+    }
+
+    // console.log(boardCode);
+    // console.log(boardNo);
+
+    location.href= `/editBoard/${boardCode}/${boardNo}/delete`;
+
+});
+
 
 
 
