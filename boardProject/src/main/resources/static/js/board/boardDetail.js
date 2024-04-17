@@ -87,9 +87,25 @@ deleteBtn.addEventListener("click", e=>{
 
 });
 
+/* ------------------------- 게시글 수정 버튼 ------------------------- */
+const updateBtn = document.querySelector("#updateBtn");
+
+if(updateBtn != null){
+    updateBtn.addEventListener("click", e=>{
+
+        // /editBoard/1/2010/update?cp=1 (GET 방식)
+        location.href= location.pathname.replace('board','editBoard') + "/update"  + location.search;
+
+    })
+}
 
 
+// // 리스트 목록 버튼
+// const goToListBtn = document.querySelector("#goToListBtn").addEventListener("click", e=>{
 
+//     location.href=
+
+// });
 
 
 
