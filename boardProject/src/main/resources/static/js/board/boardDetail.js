@@ -69,23 +69,25 @@ boardLike.addEventListener("click", e=>{
 
 const deleteBtn = document.querySelector("#deleteBtn");
 
-deleteBtn.addEventListener("click", e=>{
-
-    console.log(cp);
-
-    let result = confirm("삭제 하시겠습니까?");
-
-    if(!result) {
-        alert("취소됨");
-        return;
-    }
-
-    // console.log(boardCode);
-    // console.log(boardNo);
-
-    location.href= `/editBoard/${boardCode}/${boardNo}/delete`;
-
-});
+if(deleteBtn != null){
+    deleteBtn.addEventListener("click", e=>{
+    
+        console.log(cp);
+    
+        let result = confirm("삭제 하시겠습니까?");
+    
+        if(!result) {
+            alert("취소됨");
+            return;
+        }
+    
+        // console.log(boardCode);
+        // console.log(boardNo);
+    
+        location.href= `/editBoard/${boardCode}/${boardNo}/delete`;
+    
+    });
+}
 
 /* ------------------------- 게시글 수정 버튼 ------------------------- */
 const updateBtn = document.querySelector("#updateBtn");
@@ -106,6 +108,19 @@ if(updateBtn != null){
 //     location.href=
 
 // });
+
+const goToListBtn = document.querySelector("#goToListBtn").addEventListener("click", e=>{
+
+    // 상세 조회 : /board/1/2011?cp=1
+
+    // 목록      : /board/1?cp=1
+
+    let url = location.pathname;
+    url = url.substring(0,url.lastIndexOf("/"));
+
+    location.href= url + location.search;
+                    // 쿼리스트링
+})
 
 
 
