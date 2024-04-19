@@ -136,6 +136,7 @@ public class Pagination {
 		startPage = (currentPage - 1) / pageSize * pageSize + 1;
 		
 		endPage = pageSize - 1 + startPage;
+		// if(startPage > endPage) endPage = startPage;
 		
 		// 페이지 끝 번호가 최대 페이지를 초과한 경우
 		if(endPage > maxPage) endPage = maxPage;

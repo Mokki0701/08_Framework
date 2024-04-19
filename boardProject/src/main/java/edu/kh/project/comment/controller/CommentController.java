@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
  * -> 모든 응답을 응답 본문 (ajax)으로 반환하는 컨트롤러
  */
 
-@RestController
+@RestController 
 @RequiredArgsConstructor
 @RequestMapping("comment")
 public class CommentController {

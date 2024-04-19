@@ -28,5 +28,7 @@ public interface BoardService {
 	int boardLike(Map<String, Integer> map);
 
 	int updateReadCount(int boardNo);
+
+	Map<String, Object> searchList(Map<String, Object> paramMap, int cp);
 	
 }

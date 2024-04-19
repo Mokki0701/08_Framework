@@ -28,6 +28,9 @@ const changeImageFn = (inputImage, order) => {
   const file = inputImage.files[0];
 
 
+  // 파일을 업로드할 때, 유효성 검사하는것처럼
+  // 1. 파일이 취소 되었을 경우
+  // 2. 선택된 파일의 크기가 최대 크기를 초과한 경우 
   // ------------- 파일 선택 -> 취소 해서 파일이 없는 경우 ----------------
   if(file == undefined){
     console.log("파일 선택 취소됨");
@@ -85,6 +88,7 @@ const changeImageFn = (inputImage, order) => {
 
   // ------------ 선택된 이미지 미리보기 --------------
 
+  // 정확하게 설계가 안된 경우에는 먼저 내가 구현하려는 기능들을 정의하면서 설정해야함   
   const reader = new FileReader(); // JS에서 파일을 읽고 저장하는 객체
 
   // 선택된 파일을 JS로 읽어오기 -> reader.result 변수에 저장됨
@@ -95,7 +99,7 @@ const changeImageFn = (inputImage, order) => {
 
     // img 태그(.preview)에 src 속성으로 url 값을 대입
     previewList[order].src = url;
-
+ 
     // 같은 순서 backupInputList에 input태그를 복제해서 대입
     backupInputList[order] = inputImage.cloneNode(true);
 
@@ -123,7 +127,7 @@ for(let i=0 ; i<inputImageList.length ; i++){
         // 미리보기 이미지가 있을 때 만
         if(previewList[i].getAttribute("src") != null && previewList[i].getAttribute("src") != "" ){
 
-            // 기존에 이미지가 존재하고 있을 경우에만
+            // 기존에 이미지가 존재하고 있을 경우에만 
             if(orderList.includes(i)){
                 
                 deleteOrder.add(i);
