@@ -212,7 +212,7 @@ const showInsertComment = (parentCommentNo, btn) => {
         }
     }
 
-    // 답글을 작성할 textarea 요소 생성
+    // 답글을 작성할 textarea 요소 생성 
     const textarea = document.createElement("textarea");
     textarea.classList.add("commentInsertContent");
 

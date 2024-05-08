@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import edu.kh.project.member.model.service.MemberService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.OracleDatabaseException;
 import oracle.jdbc.proxy.annotation.Post;
 
 /* @SessionAttributes({"key", "key", ...})
@@ -207,13 +209,24 @@ public class MemberController {
 
 		log.debug(email);
 
-		Member loginMember = service.quickLogin(email);
-
-		if (loginMember == null) {
-			ra.addFlashAttribute("message", "해당 이메일 회원이 존재하지 않습니다");
-		} else {
-			model.addAttribute("loginMember", loginMember);
+		try {
+			
+			Member loginMember = service.quickLogin(email);
+			
+			if (loginMember == null) {
+				ra.addFlashAttribute("message", "해당 이메일 회원이 존재하지 않습니다");
+			} else {
+				model.addAttribute("loginMember", loginMember);
+			}
+			
+		}catch(Exception e) {
+			// 매개변수 e : 발생된 예외 객체
+			e.printStackTrace();
+			model.addAttribute("e", e);
+			
+			return "error/500";
 		}
+		
 
 		return "redirect:/";
 	}
@@ -280,19 +293,25 @@ public class MemberController {
 	}
 	
 	
+	// @ExceptionHandler(OracleDatabaseException.class)
+	// -> MemberController 내부에 발생되는
+	// 	  모든 OracleDatabaseException을 잡아서 처리하는 메서드
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/** MemberController 내부 모든 예외 처리 메서드
+	 * @param e : 던져진 예외 객체
+	 * @param model : Spring에서 데이터에 전달하는 용도의 객체 (request)
+	 * @return
+	 */
+//	@ExceptionHandler(Exception.class)
+//	public String memberExceptionHandler(Exception e, Model model) {
+//		
+//		e.printStackTrace();
+//		
+//		model.addAttribute("e", e);
+//		
+//		return "error/500";
+//		
+//	}
 	
 	
 	
@@ -316,4 +335,15 @@ public class MemberController {
 
 	/* ************************************************** */
 
+	
+	/* Spring 예외 처리 방법
+	 * 
+	 * 1. 메서드에서 직접 처리 (try-catch, throws)
+	 * 
+	 * 
+	 */
+	
+	
+	
+	
 }

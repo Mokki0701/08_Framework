@@ -113,6 +113,7 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.checkNickname(memberNickname);
 	}
 
+	@Transactional
 	@Override
 	public Member quickLogin(String email) {
 		
@@ -121,6 +122,13 @@ public class MemberServiceImpl implements MemberService {
 		if(loginMember == null) return null;
 		
 		loginMember.setMemberPw(null);
+		
+//		int temp = 1;
+		
+//		if(temp == 1) {
+//			throw new RuntimeException("예외 던지기 테스트");
+//		}
+		
 		
 		return loginMember;
 	}
