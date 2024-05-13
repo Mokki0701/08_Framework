@@ -244,7 +244,7 @@ if(notificationLoginCheck){ // 로그인 상태일 경우만 알림 WebSocket �
 
     })   
 
-}
+} 
 
 
 
